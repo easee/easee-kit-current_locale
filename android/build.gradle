@@ -1,4 +1,4 @@
-group 'com.example.current_locale'
+group 'com.easee.current_locale'
 version '1.0-SNAPSHOT'
 
 buildscript {

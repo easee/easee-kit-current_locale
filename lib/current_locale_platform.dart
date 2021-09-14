@@ -11,7 +11,7 @@ class CurrentLocaleFactory
 
 class CurrentLocalePlatform extends CurrentLocaleManager
 {
-	static const String kChannelName = "plugins.davincium.com/current_locale";
+	static const String kChannelName = "plugins.easee.com/current_locale";
 
 	@override
 	bool get isPlatformSupported

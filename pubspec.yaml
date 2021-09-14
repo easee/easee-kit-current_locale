@@ -21,7 +21,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.davincium.current_locale
+        package: com.easee.current_locale
         pluginClass: CurrentLocalePlugin
       ios:
         pluginClass: CurrentLocalePlugin

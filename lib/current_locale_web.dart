@@ -16,7 +16,7 @@ class CurrentLocaleWeb extends CurrentLocaleManager
 {
 	static void registerWith(Registrar registrar) 
 	{
-		final MethodChannel channel = MethodChannel('plugins.davincium.com/current_locale',const StandardMethodCodec(),registrar,);
+		final MethodChannel channel = MethodChannel('plugins.easee.com/current_locale',const StandardMethodCodec(),registrar,);
 		final pluginInstance = CurrentLocaleWeb();
 		channel.setMethodCallHandler(pluginInstance.handleMethodCall);
 	}

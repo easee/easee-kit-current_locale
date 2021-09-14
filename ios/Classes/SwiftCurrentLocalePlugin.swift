@@ -4,7 +4,7 @@ import CoreTelephony
 
 public class SwiftCurrentLocalePlugin: NSObject, FlutterPlugin
 {
-    static let kChannelName = "plugins.davincium.com/current_locale"
+    static let kChannelName = "plugins.easee.com/current_locale"
     
     func getCurrentLocaleIdentifier() -> String
     {

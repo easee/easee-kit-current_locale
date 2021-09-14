@@ -1,4 +1,4 @@
-package com.davincium.current_locale
+package com.easee.current_locale
 
 import androidx.annotation.NonNull
 
@@ -22,7 +22,7 @@ class CurrentLocalePlugin: FlutterPlugin, MethodCallHandler
 	{
         model = CurrentLocaleModel(flutterPluginBinding.applicationContext)
 
-		channel = MethodChannel(flutterPluginBinding.binaryMessenger, "plugins.davincium.com/current_locale")
+		channel = MethodChannel(flutterPluginBinding.binaryMessenger, "plugins.easee.com/current_locale")
 		channel.setMethodCallHandler(this)
 	}
 
