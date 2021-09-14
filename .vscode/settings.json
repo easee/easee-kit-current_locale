@@ -1,0 +1,10 @@
+{
+	"[dart]": {
+		"editor.tabSize": 2,
+		"editor.insertSpaces": false,
+		"editor.detectIndentation": false,		
+	},
+	"dart.enableSdkFormatter": false,
+	"dart.updateImportsOnRename": true,
+	"dart.showTodos": true
+}
