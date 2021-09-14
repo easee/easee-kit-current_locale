@@ -76,7 +76,7 @@ public class SwiftCurrentLocalePlugin: NSObject, FlutterPlugin
     public static func register(with registrar: FlutterPluginRegistrar)
     {
         let channel = FlutterMethodChannel(name:kChannelName, binaryMessenger: registrar.messenger())
-        let instance = SwiftFlutterCurrentLocalePlugin()
+        let instance = SwiftCurrentLocalePlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
 

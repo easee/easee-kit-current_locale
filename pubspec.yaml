@@ -1,6 +1,6 @@
 name: current_locale
 description: Obtains Device Locale Information
-version: 1.0.0
+version: 1.0.0+1
 homepage:
 
 environment:
