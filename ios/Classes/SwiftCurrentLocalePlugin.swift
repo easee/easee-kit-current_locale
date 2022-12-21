@@ -28,9 +28,26 @@ public class SwiftCurrentLocalePlugin: NSObject, FlutterPlugin
         return Locale(identifier:preferred).languageCode
     }
 
+    func getCarriers() -> [CTCarrier]?
+    {
+        let network = CTTelephonyNetworkInfo()
+        if #available(iOS 12.0, *)
+        {
+            guard let carriers = network.serviceSubscriberCellularProviders else { return nil }
+            guard !carriers.isEmpty else { return nil }
+            return carriers.values.map { $0 }
+        }
+        else
+        {
+            guard let carrier = network.subscriberCellularProvider else { return nil }
+            return [carrier]
+        }
+    }
+    
     func getCurrentCountryCode() -> String?
     {
-        guard let carrier = CTTelephonyNetworkInfo().subscriberCellularProvider else { return nil }
+        guard let carriers = getCarriers() else { return nil }
+        guard let carrier = carriers.first else { return nil }
         guard let countryCode = carrier.isoCountryCode else { return nil }
         return countryCode
     }
