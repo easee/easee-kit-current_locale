@@ -25,7 +25,7 @@ flutter:
         package: com.easee.current_locale
         pluginClass: CurrentLocalePlugin
       ios:
-        pluginClass: CurrentLocalePlugin
+        pluginClass: SwiftCurrentLocalePlugin
       web:
         pluginClass: CurrentLocaleWeb
         fileName: current_locale_web.dart
