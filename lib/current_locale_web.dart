@@ -14,16 +14,16 @@ class CurrentLocaleFactory
 
 class CurrentLocaleWeb extends CurrentLocaleManager
 {
-	static void registerWith(Registrar registrar) 
+	static void registerWith(Registrar registrar)
 	{
 		final MethodChannel channel = MethodChannel('plugins.easee.com/current_locale',const StandardMethodCodec(),registrar,);
 		final pluginInstance = CurrentLocaleWeb();
 		channel.setMethodCallHandler(pluginInstance.handleMethodCall);
 	}
 
-	Future<dynamic> handleMethodCall(MethodCall call) async 
+	Future<dynamic> handleMethodCall(MethodCall call) async
 	{
-		switch (call.method) 
+		switch (call.method)
 		{
 			case 'getCurrentLanguage': return getCurrentLanguage();
 			case 'getCurrentCountryCode': return getCurrentCountryCode();
@@ -45,7 +45,7 @@ class CurrentLocaleWeb extends CurrentLocaleManager
 	@override
 	Future<String> getCurrentLanguage() async
 	{
-		var language = html.window.navigator.language;    
+		var language = html.window.navigator.language;
 		switch(language)
 		{
 			case "nb-NO":
@@ -61,7 +61,7 @@ class CurrentLocaleWeb extends CurrentLocaleManager
 	@override
 	Future<String> getCurrentCountryCode() async
 	{
-		var language = html.window.navigator.language;    
+		var language = html.window.navigator.language;
 		switch(language)
 		{
 			case "nb-NO":
@@ -97,7 +97,7 @@ class CurrentLocaleWeb extends CurrentLocaleManager
 	@override
 	Future<CurrentLocaleResult> getCurrentLocale() async
 	{
-		var language = html.window.navigator.language;    
+		var language = html.window.navigator.language;
 		switch(language)
 		{
 			case "nb-NO":
