@@ -9,7 +9,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.1'
+        classpath 'com.android.tools.build:gradle:8.3.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -29,9 +29,11 @@ android {
         namespace 'com.easee.current_locale'
     }
 
-    compileSdk 34
+	compileSdk = flutter.compileSdkVersion
+	ndkVersion = flutter.ndkVersion
 
-    compileOptions {
+
+	compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -46,12 +48,12 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 19
+			minSdkVersion flutter.minSdkVersion
     }
 
     dependencies {
         testImplementation 'org.jetbrains.kotlin:kotlin-test'
-        testImplementation 'org.mockito:mockito-core:5.0.0'
+        testImplementation 'org.mockito:mockito-core:5.2.0'
     }
 
     testOptions {

@@ -10,68 +10,66 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 
-class CurrentLocalePlugin: FlutterPlugin, MethodCallHandler
+class CurrentLocalePlugin : FlutterPlugin, MethodCallHandler
 {
 	private lateinit var channel : MethodChannel
 
 	private var model : CurrentLocaleModel? = null
 
-	override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding)
+	override fun onAttachedToEngine(flutterPluginBinding : FlutterPlugin.FlutterPluginBinding)
 	{
-        model = CurrentLocaleModel(flutterPluginBinding.applicationContext)
+		model = CurrentLocaleModel(flutterPluginBinding.applicationContext)
 
 		channel = MethodChannel(flutterPluginBinding.binaryMessenger, "plugins.easee.com/current_locale")
 		channel.setMethodCallHandler(this)
 	}
 
-	override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding)
+	override fun onDetachedFromEngine(binding : FlutterPlugin.FlutterPluginBinding)
 	{
-        model = null
+		model = null
 		channel.setMethodCallHandler(null)
 	}
 
-    override fun onMethodCall(call: MethodCall, result: Result)
-    {
-        model?.onMethodCall(call,result)
-    }
+	override fun onMethodCall(call : MethodCall, result : Result)
+	{
+		model?.onMethodCall(call, result)
+	}
 }
 
-data class CurrentLocaleModel(val context:Context)
+data class CurrentLocaleModel(val context : Context)
 {
-	fun onMethodCall(call: MethodCall, result: Result)
+	fun onMethodCall(call : MethodCall, result : Result)
 	{
-        when (call.method)
-        {
-            "getCurrentLanguage" -> result.success(getCurrentLanguage())
-            "getCurrentCountryCode" -> result.success(getCurrentCountryCode() ?: fallbackCountryCode())
-            "getCurrentLocale" -> {
+		when (call.method)
+		{
+			"getCurrentLanguage" -> result.success(getCurrentLanguage())
+			"getCurrentCountryCode" -> result.success(getCurrentCountryCode() ?: fallbackCountryCode())
+			"getCurrentLocale" ->
+			{
 
-                val identifier = getIdentifier()
-                val decimalSeparator = getDecimalSeparator()
+				val identifier = getIdentifier()
+				val decimalSeparator = getDecimalSeparator()
 
-                val language = mapOf(
-                    "phone" to getCurrentLanguage(),
-                    "locale" to getCurrentLanguage()
-                )
+				val language = mapOf(
+					"phone" to getCurrentLanguage(), "locale" to getCurrentLanguage()
+				)
 
-                val country = mapOf(
-                    "phone" to getCurrentCountryCode(),
-                    "locale" to fallbackCountryCode(),
-                    "region" to getRegion()
-                )
+				val country = mapOf(
+					"phone" to getCurrentCountryCode(), "locale" to fallbackCountryCode(), "region" to getRegion()
+				)
 
-                result.success(mapOf(
-                    "identifier" to identifier,
-                    "decimals" to decimalSeparator,
-                    "language" to language,
-                    "country" to country
-                ))
-            }
-            else -> result.notImplemented()
-        }
+				result.success(
+					mapOf(
+						"identifier" to identifier, "decimals" to decimalSeparator, "language" to language, "country" to country
+					)
+				)
+			}
+
+			else -> result.notImplemented()
+		}
 	}
 
-	private fun getCurrentCountryCode(): String?
+	private fun getCurrentCountryCode() : String?
 	{
 		val manager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager?
 		if (manager != null)
@@ -79,17 +77,17 @@ data class CurrentLocaleModel(val context:Context)
 			val countryId = manager.simCountryIso
 			if (countryId != null && countryId.isNotEmpty())
 			{
-			return countryId.uppercase()
+				return countryId.uppercase()
 			}
 		}
 		return null
 	}
 
-	private fun fallbackCountryCode(): String?
+	private fun fallbackCountryCode() : String?
 	{
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
 		{
-            val configuration = context.resources.configuration
+			val configuration = context.resources.configuration
 			val list = configuration.locales
 			if (list.size() > 0)
 			{
@@ -100,7 +98,8 @@ data class CurrentLocaleModel(val context:Context)
 		}
 		else
 		{
-			@Suppress("DEPRECATION") val current = context.resources.configuration.locale
+			@Suppress("DEPRECATION")
+			val current = context.resources.configuration.locale
 			return current.country.uppercase()
 		}
 	}
@@ -109,7 +108,7 @@ data class CurrentLocaleModel(val context:Context)
 	{
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
 		{
-            val configuration = context.resources.configuration
+			val configuration = context.resources.configuration
 			val list = configuration.locales
 			if (list.size() > 0)
 			{
@@ -123,31 +122,31 @@ data class CurrentLocaleModel(val context:Context)
 			@Suppress("DEPRECATION")
 			val current = context.resources.configuration.locale
 			return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            {
-                current.toLanguageTag()
-            }
-            else
-            {
-                val language: String = current.language
-                val country: String = current.country
+			{
+				current.toLanguageTag()
+			}
+			else
+			{
+				val language : String = current.language
+				val country : String = current.country
 
-                return if (country.isNotEmpty())
-                {
-                    "$language-$country"
-                }
-                else
-                {
-                    language
-                }
-            }
-        }
+				return if (country.isNotEmpty())
+				{
+					"$language-$country"
+				}
+				else
+				{
+					language
+				}
+			}
+		}
 	}
 
 	private fun getRegion() : String?
 	{
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
 		{
-            val configuration = context.resources.configuration
+			val configuration = context.resources.configuration
 			val list = configuration.locales
 			if (list.size() > 0)
 			{
@@ -164,11 +163,11 @@ data class CurrentLocaleModel(val context:Context)
 		}
 	}
 
-	private fun getDecimalSeparator(): String?
+	private fun getDecimalSeparator() : String?
 	{
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
 		{
-            val configuration = context.resources.configuration
+			val configuration = context.resources.configuration
 			val list = configuration.locales
 			if (list.size() > 0)
 			{
@@ -185,7 +184,7 @@ data class CurrentLocaleModel(val context:Context)
 		}
 	}
 
-	private fun getCurrentLanguage(): String?
+	private fun getCurrentLanguage() : String?
 	{
 		val configuration = context.resources.configuration
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
@@ -200,7 +199,8 @@ data class CurrentLocaleModel(val context:Context)
 		}
 		else
 		{
-			@Suppress("DEPRECATION") val current = context.resources.configuration.locale
+			@Suppress("DEPRECATION")
+			val current = context.resources.configuration.locale
 			return current.language
 		}
 	}

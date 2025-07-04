@@ -12,16 +12,6 @@ if (localPropertiesFile.exists()) {
     }
 }
 
-def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
-if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
-}
-
-def flutterVersionName = localProperties.getProperty('flutter.versionName')
-if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
-}
-
 android {
     namespace "com.easee.current_locale_example"
     compileSdk flutter.compileSdkVersion
@@ -33,7 +23,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+			jvmTarget = JavaVersion.VERSION_1_8
     }
 
     sourceSets {
@@ -41,11 +31,11 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.easee.current_locale_example"
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+      applicationId "com.easee.current_locale_example"
+      minSdkVersion flutter.minSdkVersion
+      targetSdkVersion flutter.targetSdkVersion
+			versionCode = flutter.versionCode
+			versionName = flutter.versionName
     }
 
     buildTypes {
